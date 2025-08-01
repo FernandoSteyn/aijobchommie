@@ -50,7 +50,7 @@ class JobScraperService {
       console.log('Starting Google job search for South Africa...');
       
       // Navigate to Google Jobs
-      await this.page.goto('https://www.google.com/search?q=jobs+south+africa&ibp=htl;jobs', {
+await this.page.goto('https://www.google.com/search?q=jobs+south+africa\u0026ibp=htl;jobs\u0026filter=nonprofit', {
         waitUntil: 'networkidle2',
         timeout: 30000
       });

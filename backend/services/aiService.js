@@ -2,6 +2,25 @@ const axios = require('axios');
 
 class AIService {
   constructor() {
+    this.lowCostModels = {
+      namedEntityRecognition: 'dslim/bert-base-NER',
+      skillClassification: 'facebook/bart-large-mnli',
+      sentenceEmbeddings: 'sentence-transformers/all-MiniLM-L6-v2',
+      questionAnswering: 'deepset/roberta-base-squad2',
+      coverLetter: 'tiiuae/falcon-7b-instruct',
+      sentimentAnalysis: 'distilbert-base-uncased-finetuned-sst-2-english'
+    };
+
+    this.modelRates = {
+      // Costs per 1000 tokens (minimized for budget)
+      'dslim/bert-base-NER': 0.5,
+      'facebook/bart-large-mnli': 1.0,
+      'sentence-transformers/all-MiniLM-L6-v2': 0.3,
+      'deepset/roberta-base-squad2': 0.7,
+      'tiiuae/falcon-7b-instruct': 2.0,
+      'distilbert-base-uncased-finetuned-sst-2-english': 0.2
+    };
+
     this.apiKey = process.env.HUGGING_FACE_API_KEY;
     this.baseUrl = 'https://api-inference.huggingface.co/models/';
     this.headers = {
