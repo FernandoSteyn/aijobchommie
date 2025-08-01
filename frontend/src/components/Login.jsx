@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiMail, FiLock } from 'react-icons/fi';
+import { FiMail, FiLock, FiBriefcase } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../config/supabase';
 import toast from 'react-hot-toast';
