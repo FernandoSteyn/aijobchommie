@@ -1,0 +1,25 @@
+{
+  "short_name": "AI Job Chommie",
+  "name": "AI Job Chommie - Smart Job Search South Africa",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#00ff41",
+  "background_color": "#0a0a0a",
+  "description": "AI-powered job search and application assistant for South Africa",
+  "categories": ["business", "productivity"],
+  "orientation": "portrait",
+  "lang": "en-ZA",
+  "scope": "/"
+}

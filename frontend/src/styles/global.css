@@ -1,0 +1,55 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+  background-color: #0a0a0a;
+  color: #00ff41;
+  font-family: 'Arial', sans-serif;
+}
+
+button {
+  background-color: #0a0a0a;
+  color: #00ff41;
+  border: 2px solid #00ff41;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #00ff41;
+  color: #0a0a0a;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+  background-color: #1a1a1a;
+  border: 1px solid #00ff41;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  font-size: 2rem;
+  color: #00ff41;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #555;
+}
