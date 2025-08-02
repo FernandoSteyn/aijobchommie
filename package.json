@@ -7,15 +7,39 @@
     "start": "cd backend && npm start",
     "build": "cd backend && npm ci --only=production --no-audit --no-fund",
     "dev": "cd backend && npm run dev",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "postinstall": "cd backend && npm ci --only=production --no-audit --no-fund"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
   },
-  "keywords": ["job-search", "ai", "south-africa", "pwa"],
+  "keywords": [
+    "job-search",
+    "ai",
+    "south-africa",
+    "pwa"
+  ],
   "author": "Fernando Steyn",
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "babel-jest": "^30.0.5",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "jest-transform-stub": "^2.0.0"
+  },
+  "dependencies": {
+    "framer-motion": "^12.23.12",
+    "react-hot-toast": "^2.5.2",
+    "react-router-dom": "^7.7.1"
+  }
 }

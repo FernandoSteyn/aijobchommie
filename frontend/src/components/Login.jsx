@@ -43,7 +43,7 @@ const Login = () => {
         if (error) throw error;
         
         toast.success('Welcome back!');
-        navigate('/dashboard');
+        navigate('/home');
       }
     } catch (error) {
       toast.error(error.message);

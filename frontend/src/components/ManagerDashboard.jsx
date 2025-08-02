@@ -1,12 +1,98 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FiDollarSign, FiBarChart2, FiAlertTriangle } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  FiDollarSign, FiBarChart2, FiAlertTriangle, FiUsers, FiTrendingUp, 
+  FiActivity, FiPieChart, FiDownload, FiRefreshCw, FiFilter,
+  FiDatabase, FiCpu, FiHardDrive, FiWifi, FiZap, FiShield,
+  FiCalendar, FiClock, FiArrowUp, FiArrowDown, FiCheckCircle,
+  FiXCircle, FiAlertCircle, FiSettings, FiMail, FiPhone
+} from 'react-icons/fi';
+import { Line, Bar, Doughnut, Area } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+} from 'chart.js';
 import AILogo from './AILogo';
+import toast from 'react-hot-toast';
+
+// Register ChartJS components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 const ManagerDashboard = () => {
-  const [financialData, setFinancialData] = useState({});
-  const [usageMetrics, setUsageMetrics] = useState({});
-  const [problems, setProblems] = useState([]);
+  const [activeTab, setActiveTab] = useState('overview');
+  const [dateRange, setDateRange] = useState('30d');
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  
+  // Financial Data States
+  const [financialData, setFinancialData] = useState({
+    totalRevenue: 125840,
+    monthlyRevenue: 18420,
+    yearlyRevenue: 221040,
+    activeSubscriptions: 847,
+    churnRate: 3.2,
+    averageRevenue: 217,
+    growthRate: 24.5,
+    projectedRevenue: 28500
+  });
+  
+  // Usage Metrics States
+  const [usageMetrics, setUsageMetrics] = useState({
+    dailyActiveUsers: 2841,
+    weeklyActiveUsers: 8542,
+    monthlyActiveUsers: 12485,
+    newSignups: 342,
+    conversionRate: 18.4,
+    avgSessionDuration: '12m 34s',
+    bounceRate: 24.5,
+    pageViews: 184291
+  });
+  
+  // System Health States
+  const [systemHealth, setSystemHealth] = useState({
+    cpuUsage: 42,
+    memoryUsage: 68,
+    diskUsage: 34,
+    apiLatency: 124,
+    uptime: 99.98,
+    errorRate: 0.02,
+    requestsPerMinute: 2847
+  });
+  
+  // Problems/Alerts States
+  const [problems, setProblems] = useState([
+    { id: 1, type: 'warning', title: 'High API Usage', description: 'API calls approaching monthly limit (85%)', timestamp: new Date() },
+    { id: 2, type: 'info', title: 'Scheduled Maintenance', description: 'Database maintenance scheduled for Sunday 2AM', timestamp: new Date() },
+    { id: 3, type: 'success', title: 'Performance Improved', description: 'Response time improved by 15% after optimization', timestamp: new Date() }
+  ]);
+  
+  // User Analytics
+  const [userAnalytics, setUserAnalytics] = useState({
+    byPlan: { basic: 5842, premium: 6643 },
+    byLocation: { 'Gauteng': 4521, 'Western Cape': 3214, 'KZN': 2841, 'Eastern Cape': 1909 },
+    byIndustry: { 'IT': 3421, 'Engineering': 2841, 'Finance': 2134, 'Healthcare': 1845, 'Other': 2244 }
+  });
 
   useEffect(() => {
     // Fetch financial data

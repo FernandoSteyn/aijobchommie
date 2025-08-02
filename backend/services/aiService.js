@@ -1,4 +1,5 @@
 const axios = require('axios');
+const aiCache = require('./aiCacheService');
 
 class AIService {
   constructor() {
@@ -32,6 +33,21 @@ class AIService {
   // Resume/CV Named Entity Recognition
   async analyzeCV(cvText) {
     try {
+      // Check cache first
+      const cached = await aiCache.getCachedResult('cv_analysis', cvText);
+      if (cached) {
+        console.log('✅ Using cached CV analysis');
+        return cached;
+      }
+
+      // If not in cache, check for similar CV
+      const similarKey = aiCache.findSimilarCV(cvText);
+      const similarCached = await aiCache.getCachedResult('cv_similarity', similarKey);
+      if (similarCached) {
+        console.log('✅ Using similar CV analysis');
+        return similarCached;
+      }
+
       const response = await axios.post(
         `${this.baseUrl}dslim/bert-base-NER`,
         { inputs: cvText },
@@ -55,7 +71,7 @@ class AIService {
         }
       });
 
-      return {
+      const result = {
         entities,
         extracted: {
           organizations: [...new Set(organizations)],
@@ -64,6 +80,12 @@ class AIService {
           raw: entities
         }
       };
+
+      // Cache the result
+      await aiCache.setCachedResult('cv_analysis', cvText, result);
+      await aiCache.setCachedResult('cv_similarity', similarKey, result);
+
+      return result;
     } catch (error) {
       console.error('Error analyzing CV:', error.response?.data || error.message);
       throw error;
@@ -73,6 +95,13 @@ class AIService {
   // Skill Classification using Zero-shot
   async classifySkills(text, candidateLabels) {
     try {
+      // Check cache first
+      const cacheKey = `${text}:${JSON.stringify(candidateLabels)}`;
+      const cached = await aiCache.getCachedResult('skill_classification', cacheKey);
+      if (cached) {
+        console.log('✅ Using cached skill classification');
+        return cached;
+      }
       const defaultLabels = [
         'Programming',
         'Data Analysis',
@@ -103,7 +132,12 @@ class AIService {
         { headers: this.headers }
       );
 
-      return response.data;
+      const result = response.data;
+      
+      // Cache the result
+      await aiCache.setCachedResult('skill_classification', cacheKey, result);
+      
+      return result;
     } catch (error) {
       console.error('Error classifying skills:', error.response?.data || error.message);
       throw error;
@@ -113,13 +147,25 @@ class AIService {
   // Generate sentence embeddings for job matching
   async generateEmbeddings(text) {
     try {
+      // Check cache first
+      const cached = await aiCache.getCachedResult('embeddings', text);
+      if (cached) {
+        console.log('✅ Using cached embeddings');
+        return cached;
+      }
+
       const response = await axios.post(
         `${this.baseUrl}sentence-transformers/all-MiniLM-L6-v2`,
         { inputs: text },
         { headers: this.headers }
       );
 
-      return response.data;
+      const result = response.data;
+      
+      // Cache the result
+      await aiCache.setCachedResult('embeddings', text, result);
+      
+      return result;
     } catch (error) {
       console.error('Error generating embeddings:', error.response?.data || error.message);
       throw error;
@@ -177,6 +223,13 @@ class AIService {
   // Question Answering for extracting specific info
   async extractInfoFromCV(cvText, question) {
     try {
+      // Check cache first
+      const cacheKey = `${cvText}:${question}`;
+      const cached = await aiCache.getCachedResult('qa_extraction', cacheKey);
+      if (cached) {
+        console.log('✅ Using cached Q&A extraction');
+        return cached;
+      }
       const response = await axios.post(
         `${this.baseUrl}deepset/roberta-base-squad2`,
         {
@@ -188,7 +241,12 @@ class AIService {
         { headers: this.headers }
       );
 
-      return response.data;
+      const result = response.data;
+      
+      // Cache the result
+      await aiCache.setCachedResult('qa_extraction', cacheKey, result);
+      
+      return result;
     } catch (error) {
       console.error('Error extracting info from CV:', error.response?.data || error.message);
       throw error;
