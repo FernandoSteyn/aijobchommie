@@ -7,13 +7,15 @@
     "start": "cd backend && npm start",
     "build": "cd backend && npm install",
     "dev": "cd backend && npm run dev",
-    "install-backend": "cd backend && npm install",
-    "install-frontend": "cd frontend && npm install"
+    "postinstall": "cd backend && npm install"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "keywords": ["job-search", "ai", "south-africa", "pwa"],
   "author": "Fernando Steyn",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
 }
