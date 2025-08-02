@@ -1,0 +1,19 @@
+{
+  "name": "aijobchommie",
+  "version": "1.0.0",
+  "description": "AI Job Chommie - Smart job search assistant for South Africa",
+  "main": "backend/src/index.js",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "build": "cd backend && npm install",
+    "dev": "cd backend && npm run dev",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["job-search", "ai", "south-africa", "pwa"],
+  "author": "Fernando Steyn",
+  "license": "MIT"
+}
