@@ -306,7 +306,7 @@ describe('App Integration Tests', () => {
       }
     });
 
-    test('handles theme toggle', async () => {
+    test('handles theme toggle and logout', async () => {
       renderApp();
 
       await waitFor(() => {
@@ -320,6 +320,14 @@ describe('App Integration Tests', () => {
       } else {
         // If no theme toggle found, just verify the toggle function exists
         expect(document.documentElement.classList.toggle).toBeDefined();
+      }
+
+      const logoutButton = screen.queryByTestId('logout-button');
+      if (logoutButton) {
+        fireEvent.click(logoutButton);
+        await waitFor(() => {
+          expect(screen.getByTestId('login-page')).toBeInTheDocument();
+        });
       }
     });
   });
