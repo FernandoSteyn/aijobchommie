@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: aijobchommie-backend
+    runtime: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    plan: free
+    region: oregon
+    maxShutdownDelaySeconds: 30
+    preDeployCommand: echo "Starting deployment..."
+    buildFilter:
+      paths:
+        - backend/**
+      ignoredPaths:
+        - frontend/**
+        - README.md
+        - *.md

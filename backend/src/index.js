@@ -25,6 +25,15 @@ app.get('/', (req, res) => {
   res.send('Welcome to AI Job Chommie Backend API');
 });
 
+// Health check endpoint for Render
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    message: 'AI Job Chommie Backend is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.use('/api/jobs', jobRoutes);
 app.use('/api/paystack', paystackRoutes);
 app.use('/api/manager', managerRoutes);
