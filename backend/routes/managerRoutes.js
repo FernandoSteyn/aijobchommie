@@ -1,6 +1,7 @@
 const express = require('express');
 const { authMiddleware, adminMiddleware } = require('../src/middleware/auth');
 const { supabase } = require('../config/supabase');
+const costTrackingService = require('../services/costTrackingService');
 
 const router = express.Router();
 
@@ -125,6 +126,62 @@ router.get('/problems', authMiddleware, adminMiddleware, async (req, res) => {
   } catch (error) {
     console.error('Error fetching problems:', error);
     res.status(500).json({ error: 'Failed to fetch problems' });
+  }
+});
+
+// Get cost tracking dashboard data
+router.get('/cost-dashboard', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const dashboardData = await costTrackingService.getDashboardData();
+    res.json(dashboardData);
+  } catch (error) {
+    console.error('Error fetching cost dashboard data:', error);
+    res.status(500).json({ error: 'Failed to fetch cost dashboard data' });
+  }
+});
+
+// Get monthly cost breakdown
+router.get('/costs/monthly', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const monthlyCosts = await costTrackingService.getMonthlyCosts();
+    res.json(monthlyCosts);
+  } catch (error) {
+    console.error('Error fetching monthly costs:', error);
+    res.status(500).json({ error: 'Failed to fetch monthly costs' });
+  }
+});
+
+// Log a manual cost entry
+router.post('/costs/log', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const { serviceName, costType, amount, description } = req.body;
+    await costTrackingService.logCost(serviceName, costType, amount, description);
+    res.json({ success: true, message: 'Cost logged successfully' });
+  } catch (error) {
+    console.error('Error logging cost:', error);
+    res.status(500).json({ error: 'Failed to log cost' });
+  }
+});
+
+// Get optimization suggestions
+router.get('/costs/suggestions', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const suggestions = await costTrackingService.generateOptimizationSuggestions();
+    res.json(suggestions);
+  } catch (error) {
+    console.error('Error fetching optimization suggestions:', error);
+    res.status(500).json({ error: 'Failed to fetch optimization suggestions' });
+  }
+});
+
+// Initialize cost tracking (run once)
+router.post('/costs/initialize', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    await costTrackingService.initializeCostTables();
+    res.json({ success: true, message: 'Cost tracking initialized' });
+  } catch (error) {
+    console.error('Error initializing cost tracking:', error);
+    res.status(500).json({ error: 'Failed to initialize cost tracking' });
   }
 });
 

@@ -21,17 +21,64 @@ class PaystackService {
     return hash === signature;
   }
 
-  // Initialize transaction
-  async initializeTransaction(email, amount, metadata = {}) {
+  // Initialize transaction with multiple payment channels
+  async initializeTransaction(email, amount, metadata = {}, channels = []) {
+    try {
+      const paymentData = {
+        email,
+        amount: amount * 100, // Convert to kobo (cents)
+        currency: 'ZAR',
+        metadata: {
+          ...metadata,
+          custom_fields: [
+            {
+              display_name: 'Invoice ID',
+              variable_name: 'invoice_id',
+              value: metadata.invoiceId || `INV-${Date.now()}`
+            }
+          ]
+        },
+        callback_url: `${process.env.FRONTEND_URL}/payment/callback`
+      };
+
+      // Add payment channels if specified
+      if (channels && channels.length > 0) {
+        paymentData.channels = channels;
+      }
+
+      const response = await axios.post(
+        `${this.baseUrl}/transaction/initialize`,
+        paymentData,
+        { headers: this.headers }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error('Error initializing transaction:', error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  // Initialize USSD payment
+  async initializeUSSDPayment(email, amount, metadata = {}) {
+    return this.initializeTransaction(email, amount, metadata, ['ussd']);
+  }
+
+  // Initialize Mobile Money payment
+  async initializeMobileMoneyPayment(email, amount, phone, metadata = {}) {
     try {
       const response = await axios.post(
         `${this.baseUrl}/transaction/initialize`,
         {
           email,
-          amount: amount * 100, // Convert to kobo (cents)
+          amount: amount * 100,
           currency: 'ZAR',
+          phone,
+          channels: ['mobile_money'],
           metadata: {
             ...metadata,
+            payment_method: 'mobile_money',
+            phone_number: phone,
             custom_fields: [
               {
                 display_name: 'Invoice ID',
@@ -47,9 +94,19 @@ class PaystackService {
 
       return response.data;
     } catch (error) {
-      console.error('Error initializing transaction:', error.response?.data || error.message);
+      console.error('Error initializing mobile money payment:', error.response?.data || error.message);
       throw error;
     }
+  }
+
+  // Initialize Bank Transfer payment
+  async initializeBankTransferPayment(email, amount, metadata = {}) {
+    return this.initializeTransaction(email, amount, metadata, ['bank_transfer']);
+  }
+
+  // Initialize QR Code payment
+  async initializeQRPayment(email, amount, metadata = {}) {
+    return this.initializeTransaction(email, amount, metadata, ['qr']);
   }
 
   // Verify transaction

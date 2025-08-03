@@ -94,6 +94,24 @@ const ManagerDashboard = () => {
     byIndustry: { 'IT': 3421, 'Engineering': 2841, 'Finance': 2134, 'Healthcare': 1845, 'Other': 2244 }
   });
 
+  // Cost Tracking States
+  const [costData, setCostData] = useState({
+    totalCost: 0,
+    budgetRemaining: 150,
+    budgetUsedPercentage: 0,
+    breakdown: {},
+    alerts: [],
+    suggestions: [],
+    status: 'healthy'
+  });
+  const [showCostModal, setShowCostModal] = useState(false);
+  const [newCostEntry, setNewCostEntry] = useState({
+    serviceName: '',
+    costType: '',
+    amount: '',
+    description: ''
+  });
+
   useEffect(() => {
     // Fetch financial data
     const fetchFinancialData = async () => {
@@ -137,10 +155,74 @@ const ManagerDashboard = () => {
       }
     };
 
+    // Fetch cost tracking data
+    const fetchCostData = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/manager/cost-dashboard`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('ajc_token')}`,
+          },
+        });
+        setCostData(response.data || costData);
+      } catch (error) {
+        console.error('Failed to fetch cost data:', error);
+      }
+    };
+
     fetchFinancialData();
     fetchUsageMetrics();
     fetchProblems();
+    fetchCostData();
   }, []);
+
+  // Handle adding new cost entry
+  const handleAddCost = async () => {
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/manager/costs/log`, newCostEntry, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('ajc_token')}`,
+        },
+      });
+      toast.success('Cost entry added successfully!');
+      setShowCostModal(false);
+      setNewCostEntry({ serviceName: '', costType: '', amount: '', description: '' });
+      // Refresh cost data
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/manager/cost-dashboard`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('ajc_token')}`,
+        },
+      });
+      setCostData(response.data || costData);
+    } catch (error) {
+      console.error('Failed to add cost entry:', error);
+      toast.error('Failed to add cost entry');
+    }
+  };
+
+  // Initialize cost tracking tables
+  const initializeCostTracking = async () => {
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/manager/costs/initialize`, {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('ajc_token')}`,
+        },
+      });
+      toast.success('Cost tracking initialized!');
+    } catch (error) {
+      console.error('Failed to initialize cost tracking:', error);
+      toast.error('Failed to initialize cost tracking');
+    }
+  };
+
+  // Get status color based on budget usage
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'critical': return 'text-red-400';
+      case 'warning': return 'text-yellow-400';
+      case 'healthy': return 'text-green-400';
+      default: return 'text-gray-400';
+    }
+  };
 
   return (
     <div className="relative min-h-screen bg-black text-white py-12 px-4">
