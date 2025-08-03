@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaBriefcase, FaRocket, FaChartLine, FaBrain } from 'react-icons/fa';
+import AILogo from '../components/AILogo';
 
 const WelcomePage = () => {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ const WelcomePage = () => {
 
   return (
     <div className="loading-container">
+      {/* AI Logo */}
+      <AILogo size="xl" className="mb-8" />
       {/* 3D Rotating Logo */}
       <motion.div
         initial={{ rotateY: 0, scale: 0 }}
@@ -73,12 +76,23 @@ const WelcomePage = () => {
         AI JOB CHOMMIE
       </motion.h1>
 
+      {/* Revolution Subtitle */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.8 }}
+        className="text-2xl text-neon-pink font-bold mb-2"
+        style={{ textShadow: '0 0 15px currentColor' }}
+      >
+        JOIN THE REVOLUTION
+      </motion.p>
+
       {/* Subtitle */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.8 }}
-        className="text-xl text-neon-cyan mt-4 mb-8"
+        className="text-xl text-neon-cyan mt-2 mb-8"
         style={{ textShadow: '0 0 10px currentColor' }}
       >
         Your Smart Job Search Buddy

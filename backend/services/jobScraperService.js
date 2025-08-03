@@ -226,7 +226,7 @@ await this.page.goto('https://www.google.com/search?q=jobs+south+africa\u0026ibp
   // Schedule daily scraping
   scheduleDailyScrape() {
     // Run every day at 6 AM SAST
-    cron.schedule('0 6 * * *', async () => {
+    cron.schedule('0 6,20 * * *', async () => {
       console.log('Running scheduled daily scrape...');
       try {
         await this.runDailyScrape();

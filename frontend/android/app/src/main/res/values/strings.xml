@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AI Job Chommie</string>
+    <string name="title_activity_main">AI Job Chommie</string>
+    <string name="package_name">com.aijobchommie.app</string>
+    <string name="custom_url_scheme">com.aijobchommie.app</string>
+</resources>

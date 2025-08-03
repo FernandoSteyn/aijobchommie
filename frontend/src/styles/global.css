@@ -400,6 +400,25 @@ h3 {
   }
 }
 
+/* Progress Bar Styles */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-green));
+  border-radius: 10px;
+  box-shadow: 0 0 20px var(--neon-cyan);
+  transition: width 0.3s ease;
+}
+
 /* Progress Bar */
 .progress-bar {
   width: 100%;

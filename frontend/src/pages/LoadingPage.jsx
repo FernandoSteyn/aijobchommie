@@ -107,7 +107,7 @@ const LoadingPage = ({ loadingText = "Finding your perfect match..." }) => {
         animate={{ opacity: 1 }}
         className="loading-text"
       >
-        AI JOB CHOMMIE
+        JOIN THE REVOLUTION
       </motion.h2>
 
       {/* Progress Bar */}

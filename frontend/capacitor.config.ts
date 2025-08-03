@@ -3,7 +3,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.aijobchommie.app',
   appName: 'AI Job Chommie',
-  webDir: 'frontend/build',
+  webDir: 'build',
   server: {
     androidScheme: 'https'
   },

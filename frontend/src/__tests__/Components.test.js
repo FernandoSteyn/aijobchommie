@@ -5,7 +5,6 @@ import '@testing-library/jest-dom';
 
 // Import components
 import ThreeDCard from '../components/3d/ThreeDCard';
-import MarketingBanner from '../components/MarketingBanner';
 import Pricing from '../components/Pricing';
 import ManagerDashboard from '../components/ManagerDashboard';
 import Notifications from '../components/Notifications';
@@ -117,34 +116,6 @@ describe('Component Tests', () => {
     });
   });
 
-  describe('MarketingBanner', () => {
-    test('renders marketing banner with text', () => {
-      render(<MarketingBanner />);
-
-      expect(screen.getByText(/AI-powered job matching/i)).toBeInTheDocument();
-    });
-
-    test('displays special offer text', () => {
-      render(<MarketingBanner />);
-
-      expect(screen.getByText(/special offer/i)).toBeInTheDocument();
-      expect(screen.getByText(/R50\/month/i)).toBeInTheDocument();
-    });
-
-    test('has upgrade button', () => {
-      render(<MarketingBanner />);
-
-      const upgradeButton = screen.getByRole('button', { name: /upgrade now/i });
-      expect(upgradeButton).toBeInTheDocument();
-    });
-
-    test('displays animated text effect', () => {
-      const { container } = render(<MarketingBanner />);
-
-      const animatedText = container.querySelector('.animate-pulse');
-      expect(animatedText).toBeInTheDocument();
-    });
-  });
 
   describe('Pricing', () => {
     const mockUser = {
@@ -323,10 +294,7 @@ describe('Component Tests', () => {
 
     test('components use consistent color scheme', () => {
       const { container } = render(
-        <>
-          <MarketingBanner />
-          <Pricing user={{ id: '123' }} />
-        </>
+        <Pricing user={{ id: '123' }} />
       );
 
       // Check for cyan/pink color scheme

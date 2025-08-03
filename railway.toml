@@ -1,8 +1,5 @@
 [build]
-buildCommand = "cd backend && PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci --only=production --no-audit --no-fund"
-
-[deploy]
-startCommand = "cd backend && npm start"
+builder = "dockerfile"
 
 [variables]
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"

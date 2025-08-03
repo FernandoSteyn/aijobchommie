@@ -6,7 +6,6 @@ import { supabase } from './config/supabase';
 // Components
 import Login from './components/Login';
 import Pricing from './components/Pricing';
-import MarketingBanner from './components/MarketingBanner';
 import ManagerDashboard from './components/ManagerDashboard';
 import Navigation from './components/Navigation';
 
@@ -99,8 +98,6 @@ function App() {
         {/* Navigation - show when user is logged in */}
         {user && <Navigation user={user} isAdmin={isAdmin} />}
         
-        {/* Marketing Banner - show on all pages except manager dashboard */}
-        {window.location.pathname !== '/manager' && <MarketingBanner />}
 
         <Routes>
           {/* Public Routes */}

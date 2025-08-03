@@ -164,7 +164,6 @@ const JobsPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 50 }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.02, x: 10 }}
               className="card-3d p-6"
             >
               {/* Job Header */}
