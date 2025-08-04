@@ -16,9 +16,10 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Import routes
-const jobRoutes = require('../routes/jobRoutes');
-const paystackRoutes = require('../routes/paystackRoutes');
-const managerRoutes = require('../routes/managerRoutes');
+const path = require('path');
+const jobRoutes = require(path.join(__dirname, '../routes/jobRoutes'));
+const paystackRoutes = require(path.join(__dirname, '../routes/paystackRoutes'));
+const managerRoutes = require(path.join(__dirname, '../routes/managerRoutes'));
 
 // Main API route
 app.get('/', (req, res) => {
@@ -40,6 +41,8 @@ app.use('/api/manager', managerRoutes);
 
 // Set up server
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+
+app.listen(PORT, HOST, () => {
+  console.log(`Server is running on ${HOST}:${PORT}`);
 });
