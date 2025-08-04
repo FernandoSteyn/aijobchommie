@@ -15,6 +15,19 @@ try {
  */
 function getBrowserOptions() {
   const isProduction = process.env.NODE_ENV === 'production';
+  const os = require('os');
+  
+  // Determine Chrome executable path based on platform
+  let executablePath;
+  if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+    executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+  } else if (process.env.RENDER) {
+    executablePath = '/usr/bin/google-chrome-stable';
+  } else if (os.platform() === 'win32') {
+    executablePath = 'C:\\Users\\user\\Downloads\\chrome-win\\chrome-win\\chrome.exe';
+  } else {
+    executablePath = undefined; // Let Puppeteer use bundled Chromium
+  }
   
   return {
     headless: 'new',
@@ -29,11 +42,10 @@ function getBrowserOptions() {
       '--disable-renderer-backgrounding',
       '--no-first-run',
       '--no-zygote',
-      '--single-process', // Important for Render
+      ...(os.platform() === 'linux' ? ['--single-process'] : []), // Only use single-process on Linux
       '--disable-gpu'
     ],
-    // Use pre-installed Chrome in Docker container
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/google-chrome-stable',
+    executablePath,
   };
 }
 

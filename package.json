@@ -1,47 +1,48 @@
 {
-    "name":  "aijobchommie",
-    "version":  "1.0.0",
-    "description":  "AI Job Chommie - Smart job search assistant for South Africa",
-    "main":  "backend/src/index.js",
-    "scripts":  {
-                    "start":  "cd backend \u0026\u0026 npm start",
-                    "build":  "cd backend \u0026\u0026 npm ci --only=production --no-audit --no-fund",
-                    "dev":  "cd backend \u0026\u0026 npm run dev",
-                    "test":  "jest",
-                    "test:watch":  "jest --watch",
-                    "test:coverage":  "jest --coverage"
-                },
-    "engines":  {
-                    "node":  "\u003e=18.0.0",
-                    "npm":  "\u003e=8.0.0"
-                },
-    "keywords":  [
-                     "job-search",
-                     "ai",
-                     "south-africa",
-                     "pwa"
-                 ],
-    "author":  "Fernando Steyn",
-    "license":  "MIT",
-    "devDependencies":  {
-                            "@babel/core":  "^7.28.0",
-                            "@babel/preset-env":  "^7.28.0",
-                            "@babel/preset-react":  "^7.27.1",
-                            "@testing-library/jest-dom":  "^6.6.4",
-                            "@testing-library/react":  "^16.3.0",
-                            "@testing-library/user-event":  "^14.6.1",
-                            "babel-jest":  "^30.0.5",
-                            "identity-obj-proxy":  "^3.0.0",
-                            "jest":  "^30.0.5",
-                            "jest-environment-jsdom":  "^30.0.5",
-                            "jest-transform-stub":  "^2.0.0"
-                        },
-    "dependencies":  {
-                         "express":  "^4.18.2",
-                         "cors":  "^2.8.5",
-                         "dotenv":  "^16.3.1",
-                         "framer-motion":  "^12.23.12",
-                         "react-hot-toast":  "^2.5.2",
-                         "react-router-dom":  "^7.7.1"
-                     }
+    "name": "aijobchommie",
+    "version": "1.0.0",
+    "description": "AI Job Chommie - Smart job search assistant for South Africa",
+    "main": "backend/src/index.js",
+    "scripts": {
+        "start": "cd backend && npm start",
+        "build": "cd backend && npm ci --only=production --no-audit --no-fund",
+        "dev": "cd backend && npm run dev",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=8.0.0"
+    },
+    "keywords": [
+        "job-search",
+        "ai",
+        "south-africa",
+        "pwa"
+    ],
+    "author": "Fernando Steyn",
+    "license": "MIT",
+    "devDependencies": {
+        "@babel/core": "^7.28.0",
+        "@babel/preset-env": "^7.28.0",
+        "@babel/preset-react": "^7.27.1",
+        "@testing-library/jest-dom": "^6.6.4",
+        "@testing-library/react": "^16.3.0",
+        "@testing-library/user-event": "^14.6.1",
+        "babel-jest": "^30.0.5",
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^30.0.5",
+        "jest-environment-jsdom": "^30.0.5",
+        "jest-transform-stub": "^2.0.0"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "framer-motion": "^12.23.12",
+        "puppeteer": "^24.15.0",
+        "react-hot-toast": "^2.5.2",
+        "react-router-dom": "^7.7.1"
+    }
 }

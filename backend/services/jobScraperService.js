@@ -12,8 +12,21 @@ class JobScraperService {
 
   async initBrowser() {
     try {
+      const os = require('os');
+      
+      // Determine Chrome executable path based on platform
+      let executablePath;
+      if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+        executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+      } else if (process.env.RENDER) {
+        executablePath = '/usr/bin/google-chrome-stable';
+      } else if (os.platform() === 'win32') {
+        executablePath = 'C:\\Users\\user\\Downloads\\chrome-win\\chrome-win\\chrome.exe';
+      }
+      
       this.browser = await puppeteer.launch({
         headless: 'new',
+        executablePath,
         args: [
           '--no-sandbox',
           '--disable-setuid-sandbox',
