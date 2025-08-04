@@ -40,6 +40,7 @@
     "node": ">=18.0.0"
   },
   "puppeteer": {
-    "cacheDirectory": "./.puppeteer_cache"
+    "cacheDirectory": "./.puppeteer_cache",
+    "skipDownload": "true"
   }
 }
