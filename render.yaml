@@ -3,13 +3,13 @@ services:
     name: aijobchommie-backend
     runtime: node
     buildCommand: |
-      cd backend &&
       export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true &&
       export PUPPETEER_SKIP_DOWNLOAD=true &&
       export PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable &&
       npm ci --only=production --no-audit --no-fund
-    startCommand: cd backend && npm start
+    startCommand: node src/index.js
     healthCheckPath: /api/health
+    rootDirectory: backend
     envVars:
       - key: NODE_ENV
         value: production
