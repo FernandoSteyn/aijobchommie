@@ -21,6 +21,8 @@ services:
         value: "/usr/bin/google-chrome-stable"
       - key: RENDER
         value: "true"
+      - key: PORT
+        value: "10000"
     plan: free
     region: oregon
     buildFilter:
