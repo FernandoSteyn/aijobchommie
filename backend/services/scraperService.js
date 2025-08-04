@@ -32,8 +32,8 @@ function getBrowserOptions() {
       '--single-process', // Important for Render
       '--disable-gpu'
     ],
-    // Use Puppeteer's bundled Chromium or specified executable path
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+    // Use pre-installed Chrome in Docker container
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/google-chrome-stable',
   };
 }
 

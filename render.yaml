@@ -1,17 +1,17 @@
 services:
   - type: web
     name: aijobchommie-backend
-    runtime: node
-    buildCommand: cd backend && mkdir -p .cache && PUPPETEER_CACHE_DIR=.cache npm install --production
-    startCommand: cd backend && npm start
+    runtime: docker
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PUPPETEER_CACHE_DIR
-        value: "/opt/render/project/src/backend/.cache"
+      - key: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD
+        value: "true"
       - key: PUPPETEER_EXECUTABLE_PATH
-        value: "/opt/render/project/src/backend/.cache/chrome/linux-*/chrome-linux*/chrome"
+        value: "/usr/bin/google-chrome-stable"
     plan: free
     region: oregon
     buildFilter:
