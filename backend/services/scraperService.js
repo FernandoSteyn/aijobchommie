@@ -32,10 +32,8 @@ function getBrowserOptions() {
       '--single-process', // Important for Render
       '--disable-gpu'
     ],
-    // Use system Chrome in production, cached Chromium in development
-    executablePath: isProduction && process.env.RENDER 
-      ? '/usr/bin/google-chrome-stable' 
-      : undefined,
+    // Use Puppeteer's bundled Chromium or specified executable path
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
   };
 }
 

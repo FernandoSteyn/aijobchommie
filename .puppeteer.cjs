@@ -2,16 +2,16 @@
  * @type {import("puppeteer").Configuration}
  */
 module.exports = {
-  // Download Chromium to cache directory for faster builds
-  cacheDirectory: './.puppeteer_cache',
+  // Cache directory for Chromium download
+  cacheDirectory: process.env.PUPPETEER_CACHE_DIR || './.puppeteer_cache',
   
-  // Skip Chromium download if using system Chrome
-  skipDownload: process.env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD === 'true',
+  // Always download Chromium for job scraping functionality
+  skipDownload: false,
   
   // Executable path for different environments
   executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
   
-  // Default launch options for Render deployment
+  // Optimized launch options for Render deployment
   args: [
     '--no-sandbox',
     '--disable-setuid-sandbox',
@@ -20,6 +20,8 @@ module.exports = {
     '--no-first-run',
     '--no-zygote',
     '--single-process',
-    '--disable-gpu'
+    '--disable-gpu',
+    '--disable-web-security',
+    '--disable-features=VizDisplayCompositor'
   ]
 };
