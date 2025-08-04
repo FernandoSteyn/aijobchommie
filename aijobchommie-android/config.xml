@@ -1,11 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.aijobchommie.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>\AI Job Chommie"</name>
-    <description>Sample Apache Cordova App</description>
-    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
-        Apache Cordova Team
+    <name>AI Job Chommie</name>
+    <description>AI-powered job search assistant for South African job seekers</description>
+    <author email="fsteyn@rocketmail.com" href="https://aijobchommie.co.za">
+        AI Job Chommie Team
     </author>
     <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    <allow-navigation href="https://*/*" />
+    <access origin="*" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="24" />
+    <preference name="android-targetSdkVersion" value="34" />
+    <preference name="android-compileSdkVersion" value="34" />
+    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splashscreen.xml" />
+    <preference name="AndroidEdgeToEdge" value="false" />
 </widget>
