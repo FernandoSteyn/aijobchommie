@@ -1,9 +1,11 @@
 services:
   - type: web
     name: aijobchommie-backend
-    runtime: docker
-    dockerfilePath: backend/Dockerfile
-    dockerContext: backend
+    runtime: node
+    buildCommand: |
+      cd backend &&
+      npm ci --only=production --no-audit --no-fund
+    startCommand: cd backend && npm start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
@@ -11,7 +13,7 @@ services:
       - key: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD
         value: "true"
       - key: PUPPETEER_EXECUTABLE_PATH
-        value: "/usr/bin/google-chrome-stable"
+        value: "/usr/bin/google-chrome"
     plan: free
     region: oregon
     buildFilter:
