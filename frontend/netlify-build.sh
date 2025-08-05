@@ -1,29 +1,63 @@
 #!/bin/bash
 set -e
 
-echo "Starting Netlify build process..."
+echo "🚀 Starting Netlify build process..."
 
-# Set Node.js version
+# Set Node.js version and display environment info
+echo "📊 Environment Information:"
 echo "Node version: $(node --version)"
 echo "NPM version: $(npm --version)"
+echo "PWD: $(pwd)"
+echo "CI: $CI"
+echo "NODE_ENV: $NODE_ENV"
 
 # Clean any existing node_modules and lock files
-echo "Cleaning previous installations..."
+echo "🧹 Cleaning previous installations..."
 rm -rf node_modules
 rm -f package-lock.json
+rm -rf .npm
 
-# Set npm configuration for legacy peer deps
-echo "Configuring npm for legacy peer dependencies..."
+# Set npm configuration for legacy peer deps and CI environment
+echo "⚙️ Configuring npm for CI environment..."
 npm config set legacy-peer-deps true
 npm config set force true
 npm config set audit false
+npm config set fund false
+npm config set update-notifier false
+
+# Set CI-specific environment variables
+export CI=true
+export NODE_ENV=production
+export DISABLE_ESLINT_PLUGIN=true
+export GENERATE_SOURCEMAP=false
+export SKIP_PREFLIGHT_CHECK=true
 
 # Install dependencies with force flags
-echo "Installing dependencies with --legacy-peer-deps and --force..."
-npm install --legacy-peer-deps --force
+echo "📦 Installing dependencies..."
+npm install --legacy-peer-deps --force --no-audit --no-fund
 
-# Build the application
-echo "Building the application..."
-NODE_ENV=production npm run build:simple
+# Check if build directory exists and remove it
+if [ -d "build" ]; then
+  echo "🗑️ Removing existing build directory..."
+  rm -rf build
+fi
 
-echo "Build completed successfully!"
+# Build the application with error handling
+echo "🏗️ Building the application..."
+if npm run build:simple; then
+  echo "✅ Build completed successfully!"
+  
+  # Verify build output
+  if [ -d "build" ] && [ -f "build/index.html" ]; then
+    echo "📁 Build verification passed - files exist"
+    ls -la build/
+  else
+    echo "❌ Build verification failed - missing files"
+    exit 1
+  fi
+else
+  echo "❌ Build failed with exit code $?"
+  echo "📝 Attempting to show more details..."
+  npm run build:simple --verbose || true
+  exit 1
+fi
