@@ -9,6 +9,9 @@ import Pricing from './components/Pricing';
 import ManagerDashboard from './components/ManagerDashboard';
 import Navigation from './components/Navigation';
 
+// Auth
+import { AuthProvider } from './context/AuthContext';
+
 // Pages
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
@@ -81,9 +84,10 @@ function App() {
     );
   }
 
-  return (
-    <Router>
-      <div className="min-h-screen bg-black">
+return (
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen bg-black">
         <Toaster
           position="top-right"
           toastOptions={{
@@ -167,7 +171,8 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
-    </Router>
+        </Router>
+    </AuthProvider>
   );
 }
 

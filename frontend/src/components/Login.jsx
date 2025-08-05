@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiMail, FiLock, FiBriefcase } from 'react-icons/fi';
+import { FiMail, FiLock } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../config/supabase';
 import toast from 'react-hot-toast';
+import AIJobChommieLogo from './AIJobChommieLogo';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -58,10 +59,12 @@ const Login = () => {
         {/* Logo Section */}
         <div className="text-center">
           <div className="flex justify-center mb-4">
-            <div className="relative">
-              <FiBriefcase className="w-20 h-20 text-cyan-400" />
-              <div className="absolute inset-0 blur-xl bg-cyan-400 opacity-50"></div>
-            </div>
+            <AIJobChommieLogo 
+              size={120} 
+              variant="large" 
+              animated={true}
+              className="drop-shadow-2xl"
+            />
           </div>
           <h1 className="text-4xl font-bold mb-2">
             <span className="text-cyan-400">AI JOB</span>

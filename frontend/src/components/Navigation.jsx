@@ -8,6 +8,7 @@ import {
 } from 'react-icons/fi';
 import { supabase } from '../config/supabase';
 import toast from 'react-hot-toast';
+import AIJobChommieLogo from './AIJobChommieLogo';
 
 const Navigation = ({ user, isAdmin }) => {
   const navigate = useNavigate();
@@ -87,16 +88,15 @@ const Navigation = ({ user, isAdmin }) => {
         <div className="p-4">
           {/* Logo */}
           <div className="mb-8 flex items-center justify-center">
-            <motion.div
-              animate={{ rotate: isExpanded ? 360 : 0 }}
-              transition={{ duration: 0.5 }}
-              className="relative"
-            >
-              <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-pink-500 rounded-xl flex items-center justify-center">
-                <FiBriefcase className="text-white text-2xl" />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-pink-500 rounded-xl blur-xl opacity-50" />
-            </motion.div>
+            <AIJobChommieLogo 
+              size={48} 
+              variant="small" 
+              animated={true}
+              className="cursor-pointer"
+              style={{
+                filter: 'drop-shadow(0 0 15px rgba(6, 182, 212, 0.8))'
+              }}
+            />
             <AnimatePresence>
               {isExpanded && (
                 <motion.span
