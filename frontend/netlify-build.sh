@@ -1,4 +1,5 @@
 #!/bin/bash
+# Exit on error, but allow controlled error handling
 set -e
 
 echo "🚀 Starting Netlify build process..."
@@ -20,7 +21,6 @@ rm -rf .npm
 # Set npm configuration for legacy peer deps and CI environment
 echo "⚙️ Configuring npm for CI environment..."
 npm config set legacy-peer-deps true
-npm config set force true
 npm config set audit false
 npm config set fund false
 npm config set update-notifier false
@@ -32,9 +32,17 @@ export DISABLE_ESLINT_PLUGIN=true
 export GENERATE_SOURCEMAP=false
 export SKIP_PREFLIGHT_CHECK=true
 
-# Install dependencies with force flags
+# Install dependencies with legacy peer deps (remove --force to avoid warnings)
 echo "📦 Installing dependencies..."
-npm install --legacy-peer-deps --force --no-audit --no-fund
+if npm install --legacy-peer-deps --no-audit --no-fund; then
+  echo "✅ Dependencies installed successfully"
+else
+  echo "❌ npm install failed, trying with --force..."
+  npm install --legacy-peer-deps --force --no-audit --no-fund || {
+    echo "❌ npm install failed completely"
+    exit 2
+  }
+fi
 
 # Check if build directory exists and remove it
 if [ -d "build" ]; then
