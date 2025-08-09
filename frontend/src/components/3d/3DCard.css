@@ -1,0 +1,18 @@
+.three-d-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.three-d-card:hover {
+  transform: rotateY(15deg) rotateX(5deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.three-d-card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-in-out;
+}
+
+.three-d-card-face {
+  backface-visibility: hidden;
+}
