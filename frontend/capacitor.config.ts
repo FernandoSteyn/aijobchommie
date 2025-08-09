@@ -42,7 +42,8 @@ const config: CapacitorConfig = {
     webContentsDebuggingEnabled: true,
     buildOptions: {
       sourceCompatibility: 'VERSION_17',
-      targetCompatibility: 'VERSION_17'
+      targetCompatibility: 'VERSION_17',
+      javaVersion: '17'
     }
   }
 };
