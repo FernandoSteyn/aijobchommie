@@ -40,8 +40,10 @@ export const AuthProvider = ({ children }) => {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
       navigate('/home');
+      return { success: true };
     } catch (error) {
       console.error('Error signing in:', error);
+      return { success: false, error: error.message };
     }
   };
 
