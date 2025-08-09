@@ -11,8 +11,8 @@
     "version": "1.0.0",
     "author": "Fernando Steyn <fsteyn@rocketmail.com>",
     "engines": {
-        "node": ">=18.0.0",
-        "npm": ">=8.0.0"
+        "node": ">=24.5.0",
+        "npm": ">=11.5.0"
     },
     "name": "aijobchommie-backend",
     "main": "src/index.js",
@@ -49,6 +49,9 @@
         "node-cron": "^3.0.2",
         "nodemailer": "^6.9.7",
         "puppeteer": "^24.15.0",
+        "puppeteer-extra": "^3.3.6",
+        "puppeteer-extra-plugin-anonymize-ua": "^2.4.6",
+        "puppeteer-extra-plugin-stealth": "^2.11.2",
         "uuid": "^9.0.0",
         "winston": "^3.10.0"
     },
