@@ -1,7 +1,7 @@
 [build]
   base = "frontend"
   publish = "build"
-  command = "npm install --legacy-peer-deps --force && npm run build:fast"
+  ignore = "git diff --quiet HEAD^ HEAD"
 
 [build.environment]
   NODE_VERSION = "24.5.0"
