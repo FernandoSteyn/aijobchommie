@@ -1,7 +1,7 @@
 [build]
   base = "frontend"
   publish = "build"
-  command = "npm install --legacy-peer-deps --force && npm run build:simple"
+  command = "CI=false npm install --legacy-peer-deps --force && CI=false npm run build:simple"
 
 [build.environment]
   NODE_VERSION = "24.5.0"
@@ -31,10 +31,10 @@
   status = 200
 
 [context.production]
-  command = "npm install --legacy-peer-deps --force && npm run build:simple"
+  command = "CI=false npm install --legacy-peer-deps --force && CI=false npm run build:simple"
 
 [context.deploy-preview]
-  command = "npm install --legacy-peer-deps --force && npm run build:simple"
+  command = "CI=false npm install --legacy-peer-deps --force && CI=false npm run build:simple"
 
 [context.branch-deploy]
-  command = "npm install --legacy-peer-deps --force && npm run build:simple"
+  command = "CI=false npm install --legacy-peer-deps --force && CI=false npm run build:simple"
