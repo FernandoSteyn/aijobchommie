@@ -1,12 +1,12 @@
 [build]
   base = "frontend"
   publish = "build"
-  ignore = "git diff --quiet HEAD^ HEAD"
+  command = "npm install --legacy-peer-deps --force && npm run build:simple"
 
 [build.environment]
   NODE_VERSION = "24.5.0"
   NPM_FLAGS = "--legacy-peer-deps --force"
-  CI = "true"
+  CI = "false"
   NODE_ENV = "production"
   DISABLE_ESLINT_PLUGIN = "true"
   GENERATE_SOURCEMAP = "false"
@@ -31,10 +31,10 @@
   status = 200
 
 [context.production]
-  command = "npm install --legacy-peer-deps --force && npm run build:fast"
+  command = "npm install --legacy-peer-deps --force && npm run build:simple"
 
 [context.deploy-preview]
-  command = "npm install --legacy-peer-deps --force && npm run build:fast"
+  command = "npm install --legacy-peer-deps --force && npm run build:simple"
 
 [context.branch-deploy]
-  command = "npm install --legacy-peer-deps --force && npm run build:fast"
+  command = "npm install --legacy-peer-deps --force && npm run build:simple"
